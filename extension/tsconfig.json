@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES2020",
+    "module": "es6",
+    "target": "es5",
     "noImplicitAny": false,
     "sourceMap": false,
     "rootDir": "src",
     "outDir": "dist/js",
     "noEmitOnError": true,
-    "typeRoots": ["node_modules/@types"]
+    "moduleResolution": "node",
+    "typeRoots": ["node_modules/@types"],
   }
 }

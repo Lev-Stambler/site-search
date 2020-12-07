@@ -1,6 +1,5 @@
-import * as moment from "moment";
-import { modelForward } from "./model/model-forward";
-import { runModel } from "./model/run-model";
+import { runModel } from "./model/index";
+
 
 let count = 0;
 

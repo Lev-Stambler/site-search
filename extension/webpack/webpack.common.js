@@ -23,14 +23,26 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.go/,
+        // use: ["golang-wasm-async-loader"],
+        loader: require.resolve("golang-wasm-async-loader")
+      },
+      {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.js$/,
+        loader: require.resolve("@open-wc/webpack-import-meta-loader"),
+      },
     ],
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".wasm"],
+    extensions: [".go", ".ts", ".tsx", ".js"],
+  },
+  node: {
+    fs: "empty",
   },
   plugins: [
     // exclude locale files in moment
