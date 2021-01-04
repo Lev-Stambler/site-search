@@ -26,6 +26,8 @@
         "typescript": "^4.0.3"
     },
     "dependencies": {
+        "@extend-chrome/storage": "^1.2.1",
+        "chrome-storage-largesync": "0.0.4",
         "promisfy": "^1.2.0"
     }
 }

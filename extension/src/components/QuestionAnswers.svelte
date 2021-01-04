@@ -8,7 +8,7 @@
   let ind = 0;
 
   async function get_rankings() {
-    const ret = await fetch("http://localhost:8000/model", {
+    const ret = await fetch("http://localhost:5000/model", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,13 +23,21 @@
   }
 
   async function get_results() {
-    let s = await new Promise<IStorage>((res, rej) =>
-      ChromeExt.StorageSyncGet(defaultStorage, (s) => res(s))
-    );
-    console.log(s)
-    bodies = s.bodies;
-    question = s.question;
-    console.log("ASAS");
+    // let s = await new Promise<IStorage>((res, rej) =>
+    //   ChromeExt.StorageSyncGet("question", (s) => res(s))
+    // );
+    // console.log(s)
+    // console.log(s)
+
+    // bodies = s.bodies;
+    // question = s.question;
+    const ret = await ChromeExt.StorageGet([
+      "question",
+      "bodies",
+    ]);
+    bodies = ret.bodies
+    question = ret.question
+    console.log(bodies, question);
     const idxs = await get_rankings();
     console.log("AAAS");
     const results = idxs.map((rank) => bodies[rank]);

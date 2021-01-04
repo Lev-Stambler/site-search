@@ -9,11 +9,12 @@
   function get_paragaphs() {
     return new Promise<string[]>((resolve, rej) => {
       const code = `(function getParagraphTexts(){
+        console.log("ASASASASAS")
         const ps = Array.from(document.querySelectorAll('p')).map(i => i.innerText)
-        // console.log(ps)
+        console.log(ps)
         return ps
     })()`;
-      ChromeExt.TabQuery({ active: true }, (tabs) => {
+      ChromeExt.TabQuery({ active: true, currentWindow: true }, (tabs) => {
         const tab = tabs[0];
         ChromeExt.ExecScript(
           tab.id,
@@ -33,7 +34,7 @@
   }
 
   // The following is depreciated
-
+  /*
   async function get_rankings(bodies: string[]) {
     const ret = await fetch("http://localhost:8000/model", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -48,13 +49,13 @@
     const resIdx = await ret.json();
     return resIdx;
   }
+*/
 
   async function search_article() {
     const ps = await get_paragaphs();
-    console.log(question)
-    ChromeExt.StorageSyncGet({ bodies: ps, question }, () => {
-      new_tab();
-    });
+    // console.log(question, ps)
+    await ChromeExt.StorageSet({ bodies: ps, question });
+    new_tab();
     // const rankings = await get_rankings(ps);
     // console.log(rankings.map((rank) => ps[rank]));
     // const _answers = rankings.map((rank) => ps[rank]);

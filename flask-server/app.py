@@ -7,7 +7,7 @@ import gunicorn
 
 from transformers import DistilBertTokenizerFast
 tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
-model = torch.load('trained-eval.pt', map_location=torch.device('cpu'))
+model = torch.load('model.pt', map_location=torch.device('cpu'))
 model.eval()
 app = Flask(__name__)
 
@@ -38,7 +38,7 @@ def combine_question_answer(question, answer):
     if '?' not in question:
         question = question + '?'
     ret = f'{question}\n\n{answer}'
-    print(ret)
+    # print(ret)
     return ret
 
 
