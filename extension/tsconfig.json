@@ -1,13 +1,12 @@
 {
-  "compilerOptions": {
-    "module": "es6",
-    "target": "es5",
-    "noImplicitAny": false,
-    "sourceMap": false,
-    "rootDir": "src",
-    "outDir": "dist/js",
-    "noEmitOnError": true,
-    "moduleResolution": "node",
-    "typeRoots": ["node_modules/@types"],
-  }
+    "extends": "@tsconfig/svelte/tsconfig.json",
+
+    "include": ["src/**/*"],
+    "exclude": ["node_modules/*", "public/*"],
+    "compilerOptions": {
+        "sourceMap": false,
+        "isolatedModules": false,
+        "typeRoots": ["node_modules/@types"],
+        "types": ["svelte", "chrome"]
+    }
 }

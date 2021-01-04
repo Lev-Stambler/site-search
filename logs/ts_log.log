@@ -1,0 +1,81 @@
+2020-12-08 19:24:46,432 [INFO ] main org.pytorch.serve.ModelServer - 
+Torchserve version: 0.2.0
+TS Home: /home/lev/anaconda3/lib/python3.8/site-packages
+Current directory: /home/lev/code/chrome-extensions/site-search
+Temp directory: /tmp
+Number of GPUs: 0
+Number of CPUs: 4
+Max heap size: 1858 M
+Python executable: /home/lev/anaconda3/bin/python
+Config file: N/A
+Inference address: http://127.0.0.1:8080
+Management address: http://127.0.0.1:8081
+Metrics address: http://127.0.0.1:8082
+Model Store: /home/lev/code/chrome-extensions/site-search/model_store
+Initial Models: densenet161.mar
+Log dir: /home/lev/code/chrome-extensions/site-search/logs
+Metrics dir: /home/lev/code/chrome-extensions/site-search/logs
+Netty threads: 0
+Netty client threads: 0
+Default workers per model: 4
+Blacklist Regex: N/A
+Maximum Response Size: 6553500
+Maximum Request Size: 6553500
+Prefer direct buffer: false
+Custom python dependency for model allowed: false
+Metrics report format: prometheus
+Enable metrics API: true
+2020-12-08 19:24:46,524 [INFO ] main org.pytorch.serve.ModelServer - Loading initial models: densenet161.mar
+2020-12-08 19:24:48,195 [INFO ] main org.pytorch.serve.archive.ModelArchive - eTag 92f6ee374ac442d787438bb03657f7e6
+2020-12-08 19:24:48,243 [DEBUG] main org.pytorch.serve.wlm.ModelVersionedRefs - Adding new version 1.0 for model densenet161
+2020-12-08 19:24:48,244 [DEBUG] main org.pytorch.serve.wlm.ModelVersionedRefs - Setting default version to 1.0 for model densenet161
+2020-12-08 19:24:48,244 [INFO ] main org.pytorch.serve.wlm.ModelManager - Model densenet161 loaded.
+2020-12-08 19:24:48,244 [DEBUG] main org.pytorch.serve.wlm.ModelManager - updateModel: densenet161, count: 4
+2020-12-08 19:24:48,270 [INFO ] main org.pytorch.serve.ModelServer - Initialize Inference server with: EpollServerSocketChannel.
+2020-12-08 19:24:48,403 [INFO ] W-9002-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Listening on port: /tmp/.ts.sock.9002
+2020-12-08 19:24:48,407 [INFO ] W-9002-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - [PID]6824
+2020-12-08 19:24:48,407 [INFO ] W-9002-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Torch worker started.
+2020-12-08 19:24:48,408 [INFO ] W-9002-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Python runtime: 3.8.5
+2020-12-08 19:24:48,408 [DEBUG] W-9002-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - W-9002-densenet161_1.0 State change null -> WORKER_STARTED
+2020-12-08 19:24:48,419 [INFO ] W-9002-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - Connecting to: /tmp/.ts.sock.9002
+2020-12-08 19:24:48,422 [INFO ] W-9001-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Listening on port: /tmp/.ts.sock.9001
+2020-12-08 19:24:48,428 [INFO ] W-9001-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - [PID]6825
+2020-12-08 19:24:48,430 [INFO ] W-9001-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Torch worker started.
+2020-12-08 19:24:48,431 [DEBUG] W-9001-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - W-9001-densenet161_1.0 State change null -> WORKER_STARTED
+2020-12-08 19:24:48,431 [INFO ] W-9001-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Python runtime: 3.8.5
+2020-12-08 19:24:48,431 [INFO ] W-9001-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - Connecting to: /tmp/.ts.sock.9001
+2020-12-08 19:24:48,450 [INFO ] W-9003-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Listening on port: /tmp/.ts.sock.9003
+2020-12-08 19:24:48,451 [INFO ] W-9003-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - [PID]6823
+2020-12-08 19:24:48,452 [INFO ] W-9003-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Torch worker started.
+2020-12-08 19:24:48,452 [DEBUG] W-9003-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - W-9003-densenet161_1.0 State change null -> WORKER_STARTED
+2020-12-08 19:24:48,452 [INFO ] W-9003-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Python runtime: 3.8.5
+2020-12-08 19:24:48,452 [INFO ] W-9003-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - Connecting to: /tmp/.ts.sock.9003
+2020-12-08 19:24:48,464 [INFO ] W-9000-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Listening on port: /tmp/.ts.sock.9000
+2020-12-08 19:24:48,472 [INFO ] W-9000-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - [PID]6826
+2020-12-08 19:24:48,472 [INFO ] W-9000-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Torch worker started.
+2020-12-08 19:24:48,473 [DEBUG] W-9000-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - W-9000-densenet161_1.0 State change null -> WORKER_STARTED
+2020-12-08 19:24:48,473 [INFO ] W-9000-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Python runtime: 3.8.5
+2020-12-08 19:24:48,473 [INFO ] W-9000-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - Connecting to: /tmp/.ts.sock.9000
+2020-12-08 19:24:48,500 [INFO ] main org.pytorch.serve.ModelServer - Inference API bind to: http://127.0.0.1:8080
+2020-12-08 19:24:48,501 [INFO ] W-9002-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Connection accepted: /tmp/.ts.sock.9002.
+2020-12-08 19:24:48,502 [INFO ] W-9003-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Connection accepted: /tmp/.ts.sock.9003.
+2020-12-08 19:24:48,503 [INFO ] main org.pytorch.serve.ModelServer - Initialize Management server with: EpollServerSocketChannel.
+2020-12-08 19:24:48,502 [INFO ] W-9000-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Connection accepted: /tmp/.ts.sock.9000.
+2020-12-08 19:24:48,504 [INFO ] W-9001-densenet161_1.0-stdout org.pytorch.serve.wlm.WorkerLifeCycle - Connection accepted: /tmp/.ts.sock.9001.
+2020-12-08 19:24:48,506 [INFO ] main org.pytorch.serve.ModelServer - Management API bind to: http://127.0.0.1:8081
+2020-12-08 19:24:48,506 [INFO ] main org.pytorch.serve.ModelServer - Initialize Metrics server with: EpollServerSocketChannel.
+2020-12-08 19:24:48,509 [INFO ] main org.pytorch.serve.ModelServer - Metrics API bind to: http://127.0.0.1:8082
+2020-12-08 19:24:51,279 [INFO ] W-9001-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - Backend response time: 2656
+2020-12-08 19:24:51,279 [DEBUG] W-9001-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - W-9001-densenet161_1.0 State change WORKER_STARTED -> WORKER_MODEL_LOADED
+2020-12-08 19:24:51,316 [INFO ] W-9002-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - Backend response time: 2690
+2020-12-08 19:24:51,317 [DEBUG] W-9002-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - W-9002-densenet161_1.0 State change WORKER_STARTED -> WORKER_MODEL_LOADED
+2020-12-08 19:24:51,391 [INFO ] W-9003-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - Backend response time: 2797
+2020-12-08 19:24:51,391 [DEBUG] W-9003-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - W-9003-densenet161_1.0 State change WORKER_STARTED -> WORKER_MODEL_LOADED
+2020-12-08 19:24:51,407 [INFO ] W-9000-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - Backend response time: 2806
+2020-12-08 19:24:51,407 [DEBUG] W-9000-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - W-9000-densenet161_1.0 State change WORKER_STARTED -> WORKER_MODEL_LOADED
+2020-12-08 19:24:58,308 [INFO ] W-9001-densenet161_1.0 org.pytorch.serve.wlm.WorkerThread - Backend response time: 292
+2020-12-08 19:24:58,309 [DEBUG] W-9001-densenet161_1.0 org.pytorch.serve.wlm.Job - Waiting time ns: 138640, Backend time ns: 293436067
+2020-12-08 19:25:32,257 [INFO ] epollEventLoopGroup-2-2 org.pytorch.serve.ModelServer - Management model server stopped.
+2020-12-08 19:25:32,257 [INFO ] epollEventLoopGroup-2-1 org.pytorch.serve.ModelServer - Inference model server stopped.
+2020-12-08 19:25:32,258 [INFO ] epollEventLoopGroup-2-1 org.pytorch.serve.ModelServer - Metrics model server stopped.
+2020-12-08 19:25:34,279 [INFO ] main org.pytorch.serve.ModelServer - Torchserve stopped.

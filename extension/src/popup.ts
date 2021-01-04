@@ -1,33 +1,9 @@
-import { runModel } from "./model/index";
+import GetAnswer from "./components/GetAnswer.svelte";
+import { ChromeExt } from "./ext/chrome";
+import { defaultStorage, IStorage } from "./types";
 
-
-let count = 0;
-
-document.querySelector("#test").addEventListener("click", async (e) => {
-  await runModel();
+ChromeExt.StorageSyncGet(defaultStorage as IStorage, (stored) => {
+  const app = new GetAnswer({
+    target: document.body,
+  });
 });
-// $(function() {
-//   const queryInfo = {
-//     active: true,
-//     currentWindow: true
-//   };
-
-//   chrome.tabs.query(queryInfo, function(tabs) {
-//   });
-
-//   chrome.browserAction.setBadgeText({text: count.toString()});
-//   $('#countUp').click(()=>{
-//     chrome.browserAction.setBadgeText({text: (++count).toString()});
-//   });
-
-//   $('#changeBackground').click(()=>{
-//     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//       chrome.tabs.sendMessage(tabs[0].id, {
-//         color: '#555555'
-//       },
-//       function(msg) {
-//         console.log("result message:", msg);
-//       });
-//     });
-//   });
-// });

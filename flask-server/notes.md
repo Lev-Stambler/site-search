@@ -1,0 +1,2 @@
+## TODOs
+Start with a more basic, faster model to filter out the paragraphs which are most definitely not answers to the question. Then run the larger DistilBERT (or BERT) model on the higher than cutoff ps. Then use a more fine combed model

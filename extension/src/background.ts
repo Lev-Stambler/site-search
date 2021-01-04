@@ -1,8 +1,6 @@
+import { defaultStorage, IStorage } from "./types";
 
-function polling() {
-    console.log('polling');
-    setTimeout(polling, 1000 * 30);
-}
-
-polling();
-
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.storage.sync.get(defaultStorage as IStorage, ({ bodies }: IStorage) => {
+    });
+});

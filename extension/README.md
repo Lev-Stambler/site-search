@@ -1,70 +1,28 @@
-# Chrome Extension TypeScript Starter
+# Svelte Typescript Chrome Extension Boilerplate
 
-[![Build Status](https://travis-ci.org/chibat/chrome-extension-typescript-starter.svg?branch=master)](https://travis-ci.org/chibat/chrome-extension-typescript-starter)
+> Boilerplate for Chrome Extension Svelte Typescript project
 
-Chrome Extension, TypeScript and Visual Studio Code
+## Development
 
-## Prerequisites
-
-* [node + npm](https://nodejs.org/) (Current Version)
-
-## Option
-
-* [Visual Studio Code](https://code.visualstudio.com/)
-
-## Includes the following
-
-* TypeScript
-* Webpack
-* Moment.js
-* Jest
-* Example Code
-    * Chrome Storage
-    * Options Version 2
-    * content script
-    * count up badge number
-    * background
-
-## Project Structure
-
-* src/typescript: TypeScript source files
-* src/assets: static files
-* dist: Chrome Extension directory
-* dist/js: Generated JavaScript files
-
-## Setup
-
+```bash
+# build files to './public/build'
+# rollup.watch rebuilds your bundle when it detects changes
+npm run dev
 ```
-npm install
-```
-
-## Import as Visual Studio Code project
-
-...
 
 ## Build
 
-```
-npm run build
-```
-
-## Build in watch mode
-
-### terminal
-
-```
-npm run watch
+```bash
+# build files to './public/build'
+$ npm run build
 ```
 
-### Visual Studio Code
+## Load unpacked extensions
 
-Run watch mode.
+[Getting Started Tutorial](https://developer.chrome.com/extensions/getstarted)
 
-type `Ctrl + Shift + B`
+1. Open the Extension Management page by navigating to `chrome://extensions`.
+2. Enable Developer Mode by clicking the toggle switch next to `Developer mode`.
+3. Click the `LOAD UNPACKED` button and select the `/public` directory.
 
-## Load extension to chrome
-
-Load `dist` directory
-
-## Test
-`npx jest` or `npm run test`
+![Example](https://developer.chrome.com/static/images/get_started/load_extension.png)
