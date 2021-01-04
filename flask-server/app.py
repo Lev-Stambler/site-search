@@ -1,69 +1,65 @@
+from transformers import BertTokenizer
+import math
 from flask import Flask
 from flask import request, jsonify
 import itertools
 import torch
 import numpy as np
 import gunicorn
+BATCH_SIZE = 8
 
-from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = torch.load('model.pt', map_location=torch.device('cpu'))
 model.eval()
+# model.half()
+
 app = Flask(__name__)
 
 # TODO, I can add some batching to the paragraphs
+
+
 def tokenize(q, answer):
-  tok_out = tokenizer(answer, q, truncation=True, padding='max_length', max_length=512, return_tensors='pt')
-  return { key: value.to('cpu') for key, value in tok_out.items() }
+    tok_out = tokenizer(answer, q, truncation=True,
+                        padding='max_length', max_length=512, return_tensors='pt')
+    return {key: value.to('cpu') for key, value in tok_out.items()}
 
 
-def text_to_out_val(q, answer):
-    inp = tokenize([q], [answer])
-    with torch.no_grad():
-        print(inp)
-        out = model(**inp)[0]
-        print(out)
-        if (len(out) == 2):
-            out, _ = out
-        val = out[0]
-        return list(val)
-
-# def eval_body_sentences(body, question):
-#     sentences = body.split(".")
-#     model_outs = [text_to_out_val(question + "\n\n + sentence") for sentence in sentences]
-#     sim_scores = [model_out[1] - model_out[0] for model_out in model_outs]
-#     sim_scores_sorted = list(numpy.argsort(sim_scores))[::-1]
-#     return list(numpy.take(sentences, sim_scores_sorted))
-
-
-def combine_question_answer(question, answer):
-    # TODO just for in end?
-    if '?' not in question:
-        question = question + '?'
-    ret = f'{question}\n\n{answer}'
-    # print(ret)
-    return ret
-
+# def text_to_out_val(q, answer):
+#     inp = tokenize([q], [answer])
+#     n_lists = len(answer)
+#     with torch.no_grad():
+#         # print(inp)
+#         out = model(**inp)[0]
+#         # print(out)
+#         if (len(out) == 2):
+#             out, _ = out
+#         val = out[0]
+#         return list(val)
 
 def model_out_to_score(model_out):
     return model_out[1] - model_out[0]
 
 
-# If an individual sentence has a higher score than the paragraph, return that score
-# def score_paragraph_by_sentence(model, question, paragraph, p_score):
-#     model_outs = [text_to_out_val(combine_question_answer(
-#         question, sentence)) for sentence in paragraph.split(". ")]
-#     out = 0
-#     for model_out in model_outs:
-#         score = model_out_to_score(model_out)
-#         out = (score if score > out else out)
-#     print(paragraph, out, p_score)
-#     return out if out > p_score else p_score
+def chunks(lst, n):
+    """Yield successive n-sized chunks from lst."""
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
 
 
 def get_scored_ranked_paragraphs(model, question, paragraphs):
-    model_outs = [text_to_out_val(question, body) for body in paragraphs]
-    sim_scores = [model_out_to_score(model_out) for model_out in model_outs]
+    # n_lists = math.ceil(len(paragraphs) / BATCH_SIZE)
+    model_outs = torch.empty((0, 2))
+    with torch.no_grad():
+        for ps in chunks(paragraphs, BATCH_SIZE):
+            # print(ps)
+            print(len(ps))
+            model_inps = tokenize([question] * len(ps), ps)
+            outs = model(**model_inps)["logits"]
+            model_outs = torch.cat((model_outs, outs))
+            print(model_outs.size())
+    print(model_outs)
+    sim_scores = [model_out_to_score(model_out)
+                  for model_out in model_outs.tolist()]
     ret = list(np.argsort(sim_scores))[::-1]
     return ret, sim_scores
 
@@ -73,12 +69,6 @@ def get_scored_ranked_paragraphs(model, question, paragraphs):
 def find_best_paragraphs(model, question, paragraphs):
     ranked_by_p_idx, p_scores = get_scored_ranked_paragraphs(
         model, question, paragraphs)
-    # idx_cut_off = 20 if len(ranked_by_p_idx) > 20 else len(ranked_by_p_idx)
-    # ranked_by_p_cut = np.array(paragraphs)[ranked_by_p_idx[:idx_cut_off]]
-    # ranked_by_sentence = [score_paragraph_by_sentence(
-    #     model, question, p, p_scores[ranked_by_p_idx[i]]) for i, p in enumerate(ranked_by_p_cut)]
-    # sorted_sentence_score_idx = list(np.argsort(ranked_by_sentence)[::-1])
-    # return list(np.array(ranked_by_p_idx)[sorted_sentence_score_idx])
     return list(np.array(ranked_by_p_idx))
 
 
@@ -102,7 +92,12 @@ def handle_model():
         return str(best_ps_index)
     return "NO GOOD"
 
+
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
     # TODO have debug be an env var
     app.run(threaded=True, port=5000, debug=True)
+
+
+# TODOs get like top 10 paragraphs
+# via some sort of distance algorithm... then use deep search
