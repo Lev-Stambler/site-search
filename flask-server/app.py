@@ -5,21 +5,24 @@ import torch
 import numpy as np
 import gunicorn
 
-from transformers import DistilBertTokenizerFast
-tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
+from transformers import BertTokenizer
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = torch.load('model.pt', map_location=torch.device('cpu'))
 model.eval()
 app = Flask(__name__)
 
 # TODO, I can add some batching to the paragraphs
+def tokenize(q, answer):
+  tok_out = tokenizer(answer, q, truncation=True, padding='max_length', max_length=512, return_tensors='pt')
+  return { key: value.to('cpu') for key, value in tok_out.items() }
 
 
-def text_to_out_val(text):
-    indexed_tokens = tokenizer.encode(text, truncation=True, max_length=512)
-    tokens_tensor = torch.tensor([indexed_tokens])
-    tokens_tensor = tokens_tensor.to('cpu')
+def text_to_out_val(q, answer):
+    inp = tokenize([q], [answer])
     with torch.no_grad():
-        out = model(tokens_tensor)[0]
+        print(inp)
+        out = model(**inp)[0]
+        print(out)
         if (len(out) == 2):
             out, _ = out
         val = out[0]
@@ -59,8 +62,7 @@ def model_out_to_score(model_out):
 
 
 def get_scored_ranked_paragraphs(model, question, paragraphs):
-    model_outs = [text_to_out_val(combine_question_answer(
-        question, body)) for body in paragraphs]
+    model_outs = [text_to_out_val(question, body) for body in paragraphs]
     sim_scores = [model_out_to_score(model_out) for model_out in model_outs]
     ret = list(np.argsort(sim_scores))[::-1]
     return ret, sim_scores
@@ -102,4 +104,5 @@ def handle_model():
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
-    app.run(threaded=True, port=5000)
+    # TODO have debug be an env var
+    app.run(threaded=True, port=5000, debug=True)
